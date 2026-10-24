@@ -95,6 +95,22 @@ export default function App() {
     };
   }, []);
 
+  // Sync theme customizer settings from localStorage to CSS variables
+  useEffect(() => {
+    try {
+      const savedTheme = localStorage.getItem('thuraya_theme_settings');
+      if (savedTheme) {
+        const parsed = JSON.parse(savedTheme);
+        if (parsed.primaryColor) {
+          document.documentElement.style.setProperty('--accent', parsed.primaryColor);
+          document.documentElement.style.setProperty('--accent-2', parsed.primaryColor);
+        }
+      }
+    } catch (e) {
+      console.error('Error applying theme variables', e);
+    }
+  }, [isAdminView]);
+
   const handleOpenAdmin = () => {
     setIsAdminView(true);
     window.history.pushState(null, '', '#admin');
