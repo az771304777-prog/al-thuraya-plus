@@ -53,13 +53,13 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 md:p-6 animate-in fade-in duration-200 text-right">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-md flex items-start sm:items-center justify-center p-3 pt-5 sm:p-4 md:p-6 animate-in fade-in duration-200 text-right">
       <div
-        className="relative bg-[#101725] text-white w-full max-w-4xl rounded-2xl shadow-2xl border border-[#202B40] overflow-hidden max-h-[90vh] flex flex-col"
+        className="relative bg-[#101725] text-white w-full max-w-4xl rounded-2xl shadow-2xl border border-[#202B40] overflow-hidden max-h-[85vh] sm:max-h-[90vh] flex flex-col my-auto sm:my-0"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Close Bar */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#202B40] bg-[#0C1320]">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4 border-b border-[#202B40] bg-[#0C1320] shrink-0">
           <div className="flex items-center gap-2 text-xs text-[#97A0B3]">
             <span>{product.brand}</span>
             <span>·</span>

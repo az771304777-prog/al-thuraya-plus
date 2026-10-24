@@ -107,13 +107,13 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 md:p-6 animate-in fade-in duration-200 text-right">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-md flex items-start sm:items-center justify-center p-3 pt-5 sm:p-4 md:p-6 animate-in fade-in duration-200 text-right">
       <div
-        className="relative bg-[#101725] text-white w-full max-w-2xl rounded-2xl shadow-2xl border border-[#202B40] overflow-hidden"
+        className="relative bg-[#101725] text-white w-full max-w-2xl rounded-2xl shadow-2xl border border-[#202B40] max-h-[85vh] sm:max-h-[90vh] flex flex-col overflow-hidden my-auto sm:my-0"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#202B40] bg-[#0C1320]">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#202B40] bg-[#0C1320] shrink-0">
           <h2 className="text-base font-bold text-white">
             {confirmedOrder ? 'تم تأكيد طلبك بنجاح' : 'إتمام الطلب وتفاصيل التوصيل'}
           </h2>
@@ -128,7 +128,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
         {/* Modal Content */}
         {confirmedOrder ? (
           /* Order Confirmation View */
-          <div className="p-6 text-center space-y-4">
+          <div className="p-6 text-center space-y-4 overflow-y-auto flex-1">
             <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/30">
               <CheckCircle2 className="w-10 h-10" />
             </div>
@@ -194,7 +194,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           </div>
         ) : (
           /* Checkout Form */
-          <form onSubmit={handleSubmit} className="p-6 space-y-5">
+          <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 sm:space-y-5 overflow-y-auto flex-1">
             {/* Customer Information */}
             <div className="space-y-3">
               <h3 className="text-xs font-bold uppercase tracking-wider text-[#FF4753]">

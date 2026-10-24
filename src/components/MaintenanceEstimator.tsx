@@ -77,13 +77,13 @@ export const MaintenanceEstimator: React.FC<MaintenanceEstimatorProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200 text-right">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-md flex items-start sm:items-center justify-center p-3 pt-5 sm:p-6 animate-in fade-in duration-200 text-right">
       <div
-        className="relative bg-[#101725] text-white w-full max-w-2xl rounded-2xl shadow-2xl border border-[#202B40] overflow-hidden"
+        className="relative bg-[#101725] text-white w-full max-w-2xl rounded-2xl shadow-2xl border border-[#202B40] max-h-[85vh] sm:max-h-[90vh] flex flex-col overflow-hidden my-auto sm:my-0"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header with Mode Switcher */}
-        <div className="px-6 py-4 border-b border-[#202B40] bg-[#0C1320] flex items-center justify-between">
+        <div className="px-4 sm:px-6 py-3.5 sm:py-4 border-b border-[#202B40] bg-[#0C1320] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-1 p-1 bg-[#101725] rounded-xl border border-[#202B40] overflow-x-auto">
             <button
               onClick={() => {
@@ -156,7 +156,7 @@ export const MaintenanceEstimator: React.FC<MaintenanceEstimatorProps> = ({
 
         {/* Content Body */}
         {isBooked ? (
-          <div className="p-8 text-center space-y-4">
+          <div className="p-6 sm:p-8 text-center space-y-4 overflow-y-auto flex-1">
             <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/30">
               <CheckCircle className="w-10 h-10" />
             </div>
@@ -182,7 +182,7 @@ export const MaintenanceEstimator: React.FC<MaintenanceEstimatorProps> = ({
           </div>
         ) : activeMode === 'tradein' ? (
           /* Trade-In Form */
-          <div className="p-6 space-y-5">
+          <div className="p-4 sm:p-6 space-y-5 overflow-y-auto flex-1">
             <div className="p-3 bg-[#0C1320] border border-[#202B40] rounded-xl text-xs text-slate-300">
               💡 استبدل هاتفك أو لابتوبك القديم بآخر جديد من متجر الثريا بلاس مع تقييم فوري ونقل جميع بياناتك وصورك بأمان تام.
             </div>
@@ -288,7 +288,7 @@ export const MaintenanceEstimator: React.FC<MaintenanceEstimatorProps> = ({
           </div>
         ) : (
           /* Maintenance / Flashing / G-TAG Form */
-          <form onSubmit={handleBooking} className="p-6 space-y-5">
+          <form onSubmit={handleBooking} className="p-4 sm:p-6 space-y-4 sm:space-y-5 overflow-y-auto flex-1">
             {/* Device Type and Brand */}
             <div className="grid grid-cols-2 gap-3">
               <div>
