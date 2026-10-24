@@ -301,6 +301,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Mobile drawer toggle
 
+  // Lock body scroll when mobile sidebar drawer is open
+  useEffect(() => {
+    if (isSidebarOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isSidebarOpen]);
+
   // ---------------- Orders State ----------------
   const [orders, setOrders] = useState<Order[]>(() => {
     try {
@@ -793,7 +805,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       {/* ---------------- Admin Top Navigation Bar ---------------- */}
       <header className="sticky top-0 z-30 bg-white border-b border-slate-200/80 shadow-xs px-3 sm:px-6 h-16 flex items-center justify-between gap-2 sm:gap-4">
         {/* Right side: Hamburger (☰) + Store Identity (Strictly Single Line, whitespace-nowrap) */}
-        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+        <div className="flex flex-row items-center gap-2 sm:gap-3 shrink-0 whitespace-nowrap">
           {/* Hamburger Menu (☰) */}
           <button
             onClick={() => setIsSidebarOpen(true)}
@@ -805,26 +817,24 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           </button>
 
           {/* Clean horizontal single-line brand container */}
-          <div className="flex items-center gap-2 min-w-0 whitespace-nowrap">
+          <div className="flex flex-row items-center gap-2 shrink-0 whitespace-nowrap">
             <img
               src="/assets/aistudio/favicon_io_0bfe3b54.png"
               alt="شعار المتجر"
               className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl object-contain bg-white p-0.5 border border-slate-200 shadow-xs shrink-0"
             />
-            <div className="flex items-center gap-1.5 whitespace-nowrap">
-              <span className="font-black text-slate-900 text-sm sm:text-base whitespace-nowrap">
-                الثريا بلاس
-              </span>
-              <span className="hidden sm:inline bg-rose-100 text-[#E5252C] text-[10px] font-extrabold px-2 py-0.5 rounded-md whitespace-nowrap">
-                لوحة الإدارة
-              </span>
-            </div>
+            <span className="font-black text-slate-900 text-sm sm:text-base whitespace-nowrap">
+              الثريا بلاس
+            </span>
+            <span className="hidden sm:inline bg-rose-100 text-[#E5252C] text-[10px] font-extrabold px-2 py-0.5 rounded-md whitespace-nowrap">
+              لوحة الإدارة
+            </span>
           </div>
         </div>
 
         {/* Left side: Quick actions */}
         <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-          {/* Add Product Shortcut */}
+          {/* Add Product Shortcut on md+ */}
           <button
             onClick={handleOpenAddModal}
             className="hidden md:flex items-center gap-1.5 px-3.5 py-2 bg-[#E5252C] hover:bg-[#C91820] text-white text-xs font-bold rounded-xl shadow-xs cursor-pointer transition-colors whitespace-nowrap"
@@ -833,10 +843,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             <span>إضافة منتج</span>
           </button>
 
-          {/* Backup Data button */}
+          {/* Backup Data button on sm+ */}
           <button
             onClick={handleExportJSON}
-            className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 cursor-pointer transition-colors"
+            className="hidden sm:flex p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 cursor-pointer transition-colors"
             title="تصدير نسخة احتياطية (JSON)"
           >
             <Download className="w-4 h-4" />
@@ -864,53 +874,130 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         </div>
       </header>
 
-      {/* ---------------- Main Layout (Sidebar + Content) ---------------- */}
-      <div className="flex-1 flex overflow-hidden relative">
-        {/* =========================================================================
-            Admin Sidebar Drawer (Dark Theme, Full Screen Height, Starts from Top 0)
-        ========================================================================= */}
-        {/* Full Screen Backdrop on Mobile/Tablet */}
-        {isSidebarOpen && (
-          <div
-            className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs transition-opacity lg:hidden"
-            onClick={() => setIsSidebarOpen(false)}
-          />
-        )}
+      {/* =========================================================================
+          Mobile Sidebar Drawer (Full-Screen Dark Theme Overlay, Starts at Top: 0)
+      ========================================================================= */}
+      {/* 1. Backdrop */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs transition-opacity lg:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
 
-        {/* Sidebar container - Dark Theme, Full Height fixed on mobile, static on desktop */}
-        <aside
-          className={`fixed inset-y-0 right-0 z-50 h-screen max-h-screen w-72 sm:w-80 bg-[#0F1626] border-l border-[#202B40] text-slate-200 flex flex-col justify-between shadow-2xl transition-transform duration-300 ease-out lg:static lg:h-auto lg:z-auto lg:translate-x-0 ${
-            isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
-          }`}
-        >
-          {/* 1. Dark Drawer Top Header (Logo + Title + Close Button) */}
-          <div className="p-4 sm:p-5 border-b border-[#202B40] bg-[#0A0E17]/80 flex items-center justify-between shrink-0">
-            <div className="flex items-center gap-3">
-              <img
-                src="/assets/aistudio/favicon_io_0bfe3b54.png"
-                alt="شعار متجر الثريا بلاس"
-                className="w-10 h-10 rounded-2xl object-contain bg-white p-1 border border-[#202B40] shadow-md shrink-0"
-              />
-              <div className="flex flex-col">
-                <span className="text-sm font-black text-white whitespace-nowrap">
-                  إدارة الثريا بلاس
-                </span>
-                <span className="text-[10px] text-[#FF4753] font-bold tracking-wider">
-                  AL-THURAYA PLUS
-                </span>
-              </div>
+      {/* 2. Mobile Drawer Panel */}
+      <aside
+        className={`fixed inset-y-0 right-0 z-50 h-screen max-h-screen w-72 sm:w-80 bg-[#0F1626] border-l border-[#202B40] text-slate-200 flex flex-col justify-between shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
+          isSidebarOpen ? 'translate-x-0' : 'translate-x-full pointer-events-none'
+        }`}
+      >
+        {/* Drawer Header */}
+        <div className="p-4 sm:p-5 border-b border-[#202B40] bg-[#0A0E17] flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-3">
+            <img
+              src="/assets/aistudio/favicon_io_0bfe3b54.png"
+              alt="شعار متجر الثريا بلاس"
+              className="w-10 h-10 rounded-2xl object-contain bg-white p-1 border border-[#202B40] shadow-md shrink-0"
+            />
+            <div className="flex flex-col">
+              <span className="text-sm font-black text-white whitespace-nowrap">
+                إدارة الثريا بلاس
+              </span>
+              <span className="text-[10px] text-[#FF4753] font-bold tracking-wider">
+                AL-THURAYA PLUS
+              </span>
             </div>
-
-            <button
-              onClick={() => setIsSidebarOpen(false)}
-              className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer lg:hidden"
-              aria-label="إغلاق القائمة"
-            >
-              <X className="w-4 h-4" />
-            </button>
           </div>
 
-          {/* 2. Scrollable Dark Navigation Menu */}
+          <button
+            onClick={() => setIsSidebarOpen(false)}
+            className="w-8 h-8 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+            aria-label="إغلاق القائمة"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Drawer Menu Items */}
+        <div className="flex-1 overflow-y-auto p-3.5 space-y-1.5">
+          <div className="px-3 py-1.5 text-[11px] font-black text-slate-400 tracking-wider">
+            أقسام الإدارة
+          </div>
+
+          {navigationItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = activeTab === item.id;
+            return (
+              <button
+                key={`m-${item.id}`}
+                onClick={() => {
+                  setActiveTab(item.id);
+                  setIsSidebarOpen(false);
+                }}
+                className={`w-full text-right px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center justify-between transition-all cursor-pointer ${
+                  isActive
+                    ? 'bg-gradient-to-r from-[#F0323A] to-[#B5121B] text-white font-black shadow-lg shadow-red-600/30'
+                    : 'text-slate-300 hover:bg-[#162033] hover:text-white'
+                }`}
+              >
+                <div className="flex items-center gap-2.5">
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-slate-400'}`} />
+                  <span>{item.label}</span>
+                </div>
+
+                {item.badge !== null && item.badge !== undefined && (
+                  <span
+                    className={`text-[10px] font-black px-2 py-0.5 rounded-full ${
+                      item.isRedBadge
+                        ? 'bg-red-500 text-white animate-pulse shadow-xs'
+                        : isActive
+                        ? 'bg-black/30 text-white'
+                        : 'bg-[#1C283E] text-slate-300'
+                    }`}
+                  >
+                    {item.badge}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Drawer Bottom Actions: Well spaced, full width, no overlap */}
+        <div className="p-4 border-t border-[#202B40] bg-[#0A0E17] space-y-2.5 pb-8 shrink-0">
+          <button
+            onClick={() => {
+              handleOpenAddModal();
+              setIsSidebarOpen(false);
+            }}
+            className="w-full py-2.5 px-3 bg-[#E5252C] hover:bg-[#C91820] text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-md transition-colors cursor-pointer"
+          >
+            <Plus className="w-4 h-4" />
+            <span>إضافة منتج جديد</span>
+          </button>
+
+          <button
+            onClick={onExitAdmin}
+            className="w-full py-2.5 px-3 bg-[#131D30] hover:bg-[#1C2A44] border border-[#202B40] text-slate-200 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+          >
+            <Store className="w-4 h-4 text-emerald-400" />
+            <span>عرض المتجر</span>
+          </button>
+
+          <button
+            onClick={handleLogout}
+            className="w-full py-2 px-3 bg-red-950/40 hover:bg-red-950/70 border border-red-800/40 text-red-300 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            <span>تسجيل الخروج</span>
+          </button>
+        </div>
+      </aside>
+
+      {/* ---------------- Main Layout (Desktop Sidebar + Content) ---------------- */}
+      <div className="flex-1 flex overflow-hidden">
+        {/* Desktop Permanent Dark Sidebar */}
+        <aside className="hidden lg:flex w-72 bg-[#0F1626] border-l border-[#202B40] text-slate-200 flex-col justify-between shrink-0 h-full">
           <div className="flex-1 overflow-y-auto p-3.5 space-y-1.5">
             <div className="px-3 py-1.5 text-[11px] font-black text-slate-400 tracking-wider">
               أقسام الإدارة
@@ -921,11 +1008,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               const isActive = activeTab === item.id;
               return (
                 <button
-                  key={item.id}
-                  onClick={() => {
-                    setActiveTab(item.id);
-                    setIsSidebarOpen(false);
-                  }}
+                  key={`d-${item.id}`}
+                  onClick={() => setActiveTab(item.id)}
                   className={`w-full text-right px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center justify-between transition-all cursor-pointer ${
                     isActive
                       ? 'bg-gradient-to-r from-[#F0323A] to-[#B5121B] text-white font-black shadow-lg shadow-red-600/30'
@@ -955,21 +1039,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             })}
           </div>
 
-          {/* 3. Dark Bottom Actions (Well spaced, full width, no overlap) */}
           <div className="p-4 border-t border-[#202B40] bg-[#0A0E17] space-y-2.5 pb-6 shrink-0">
-            {/* Quick add product */}
             <button
-              onClick={() => {
-                handleOpenAddModal();
-                setIsSidebarOpen(false);
-              }}
+              onClick={handleOpenAddModal}
               className="w-full py-2.5 px-3 bg-[#E5252C] hover:bg-[#C91820] text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-md transition-colors cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>إضافة منتج جديد</span>
             </button>
 
-            {/* View storefront */}
             <button
               onClick={onExitAdmin}
               className="w-full py-2.5 px-3 bg-[#131D30] hover:bg-[#1C2A44] border border-[#202B40] text-slate-200 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"
@@ -978,7 +1056,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               <span>عرض المتجر</span>
             </button>
 
-            {/* Logout */}
             <button
               onClick={handleLogout}
               className="w-full py-2 px-3 bg-red-950/40 hover:bg-red-950/70 border border-red-800/40 text-red-300 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"

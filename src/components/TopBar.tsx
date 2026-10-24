@@ -147,34 +147,34 @@ export const TopBar: React.FC<TopBarProps> = ({
         </div>
 
         {/* ---------------- 2. الترويسة الرئيسية المتجاوبة (Responsive Navbar) ---------------- */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-2 sm:gap-4">
           {/* الجانب الأيمن: زر الثلاث شُرط (يظهر فقط على الموبايل والشاشات الصغيرة) + الشعار */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             {/* زر الثلاث شُرط (Hamburger Menu Icon) - يظهر فقط على الجوال ويختفي على الديسكتوب */}
             <button
               onClick={() => setIsMobileDrawerOpen(true)}
-              className="lg:hidden p-2.5 rounded-xl bg-white/[0.06] hover:bg-[#E5252C]/20 border border-white/15 text-white flex items-center justify-center cursor-pointer transition-colors"
+              className="lg:hidden p-2 sm:p-2.5 rounded-xl bg-white/[0.06] hover:bg-[#E5252C]/20 border border-white/15 text-white flex items-center justify-center cursor-pointer transition-colors shrink-0"
               aria-label="فتح القائمة الجانبية"
               title="القائمة"
             >
               <Menu className="w-5 h-5" />
             </button>
 
-            {/* الشعار والاسم */}
+            {/* الشعار والاسم: مرتب أفقياً flex-row بدون أي تكدس أو انكسار أسطر */}
             <button
               onClick={() => handleNavClick('home')}
-              className="flex items-center gap-2.5 group cursor-pointer text-right"
+              className="flex flex-row items-center gap-2 sm:gap-2.5 group cursor-pointer text-right shrink-0 whitespace-nowrap"
             >
               <img
                 src="/assets/aistudio/favicon_io_0bfe3b54.png"
                 alt="شعار متجر الثريا بلاس"
                 className="w-10 h-10 rounded-xl object-contain bg-white p-0.5 shadow-[0_2px_12px_rgba(229,37,44,0.35)] border border-[#202B40] shrink-0 group-hover:scale-105 transition-transform"
               />
-              <div className="flex flex-col">
-                <span className="text-xl sm:text-2xl font-black tracking-tight text-white group-hover:text-[#FF4753] transition-colors leading-none">
+              <div className="flex flex-col whitespace-nowrap">
+                <span className="text-base sm:text-2xl font-black tracking-tight text-white group-hover:text-[#FF4753] transition-colors leading-none whitespace-nowrap">
                   الثريا بلاس
                 </span>
-                <span className="text-[9px] tracking-[2.5px] text-[#FF4753] font-bold uppercase mt-1">
+                <span className="hidden sm:block text-[9px] tracking-[2.5px] text-[#FF4753] font-bold uppercase mt-1 whitespace-nowrap">
                   AL-THURAYA PLUS
                 </span>
               </div>
@@ -280,11 +280,11 @@ export const TopBar: React.FC<TopBarProps> = ({
           </nav>
 
           {/* الجانب الأيسر: أيقونات الإجراءات (البحث، العملة، المقارنة، والسلة) */}
-          <div className="flex items-center gap-2 sm:gap-2.5">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
             {/* زر البحث */}
             <button
               onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="p-2.5 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] backdrop-blur-md border border-white/15 text-[#EDEFF4] hover:text-white transition-all cursor-pointer"
+              className="p-2 sm:p-2.5 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] backdrop-blur-md border border-white/15 text-[#EDEFF4] hover:text-white transition-all cursor-pointer shrink-0"
               aria-label="البحث"
               title="بحث في المتجر"
             >
@@ -296,10 +296,10 @@ export const TopBar: React.FC<TopBarProps> = ({
               value={currentCurrency}
               onChange={(e) => onCurrencyChange(e.target.value as Currency)}
               aria-label="العملة"
-              className="bg-white/[0.06] backdrop-blur-md border border-white/15 text-xs font-bold text-slate-200 py-2 px-2.5 rounded-xl cursor-pointer focus:ring-1 focus:ring-[#E5252C] focus:outline-none"
+              className="bg-white/[0.06] backdrop-blur-md border border-white/15 text-xs font-bold text-slate-200 py-1.5 px-2 sm:py-2 sm:px-2.5 rounded-xl cursor-pointer focus:ring-1 focus:ring-[#E5252C] focus:outline-none shrink-0"
             >
               {Object.keys(CURRENCY_RATES).map((curr) => (
-                <option key={curr} value={curr} className="bg-[#101725] text-white">
+               <option key={curr} value={curr} className="bg-[#101725] text-white">
                   {CURRENCY_RATES[curr as Currency].symbol} ({curr})
                 </option>
               ))}
@@ -309,7 +309,7 @@ export const TopBar: React.FC<TopBarProps> = ({
             {compareCount > 0 && (
               <button
                 onClick={onOpenCompare}
-                className="p-2 px-2.5 rounded-xl bg-white/[0.06] border border-white/15 hover:border-[#FF4753] text-[#EDEFF4] flex items-center gap-1.5 text-xs cursor-pointer transition-all"
+                className="p-2 px-2.5 rounded-xl bg-white/[0.06] border border-white/15 hover:border-[#FF4753] text-[#EDEFF4] flex items-center gap-1.5 text-xs cursor-pointer transition-all shrink-0"
                 title="مقارنة الأجهزة"
               >
                 <Scale className="w-4 h-4 text-[#FF4753]" />
@@ -323,7 +323,7 @@ export const TopBar: React.FC<TopBarProps> = ({
             {/* سلة التسوق */}
             <button
               onClick={onOpenCart}
-              className="relative p-2.5 px-3 rounded-xl bg-white/[0.07] hover:bg-white/[0.14] border border-white/15 hover:border-[#FF4753]/60 text-white transition-all cursor-pointer flex items-center gap-2"
+              className="relative p-2 sm:p-2.5 px-2.5 sm:px-3 rounded-xl bg-white/[0.07] hover:bg-white/[0.14] border border-white/15 hover:border-[#FF4753]/60 text-white transition-all cursor-pointer flex items-center gap-1.5 sm:gap-2 shrink-0"
               aria-label="سلة التسوق"
             >
               <ShoppingBag className="w-4 h-4 text-white" />
