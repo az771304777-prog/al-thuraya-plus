@@ -1,0 +1,6 @@
+{
+  "name": "متجر الثريا بلاس | Al-Thuraya Plus",
+  "description": "هواتف ذكية وإكسسوارات أصلية بذمار: مع خدمات صيانة وبرمجة الجوالات بأحدث الأجهزة والأدوات وخدمات G-TAG وتوصيل لجميع محافظات اليمن — الثريا بلاس.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
