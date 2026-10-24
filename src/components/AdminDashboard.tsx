@@ -321,9 +321,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         <div className="absolute top-1/3 w-96 h-96 bg-[#E5252C]/15 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="relative bg-[#101725] border border-[#202B40] rounded-3xl p-8 max-w-md w-full shadow-2xl space-y-6">
-          <div className="text-center space-y-2">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#F0323A] to-[#B5121B] text-white flex items-center justify-center mx-auto shadow-lg shadow-[#E5252C]/30">
-              <Lock className="w-8 h-8" />
+          <div className="text-center space-y-3">
+            <div className="relative w-20 h-20 mx-auto">
+              <div className="w-20 h-20 rounded-2xl bg-white p-1.5 shadow-xl shadow-[#E5252C]/25 border border-[#202B40] flex items-center justify-center overflow-hidden">
+                <img
+                  src="/assets/aistudio/favicon_io_0bfe3b54.png"
+                  alt="شعار متجر الثريا بلاس"
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <span className="absolute -bottom-1 -left-1 w-6 h-6 rounded-full bg-[#E5252C] text-white flex items-center justify-center shadow-md">
+                <Lock className="w-3.5 h-3.5" />
+              </span>
             </div>
             <h1 className="text-2xl font-black">لوحة تحكم الإدارة</h1>
             <p className="text-xs text-[#97A0B3]">
@@ -397,9 +406,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       {/* Top Header Bar */}
       <header className="bg-[#101725] border border-[#202B40] rounded-3xl p-5 sm:p-6 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#F0323A] to-[#B5121B] text-white flex items-center justify-center font-black text-xl shadow-lg">
-            ★
-          </div>
+          <img
+            src="/assets/aistudio/favicon_io_0bfe3b54.png"
+            alt="شعار متجر الثريا بلاس"
+            className="w-12 h-12 rounded-2xl object-contain bg-white p-1 shadow-lg border border-[#202B40] shrink-0"
+          />
           <div>
             <h1 className="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
               <span>لوحة تحكم متجر الثريا بلاس</span>

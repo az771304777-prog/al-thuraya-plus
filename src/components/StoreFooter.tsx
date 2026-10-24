@@ -19,10 +19,12 @@ export const StoreFooter: React.FC<StoreFooterProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-[#202B40]">
           {/* Brand & About Column */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#F0323A] to-[#B5121B] text-white flex items-center justify-center font-black text-lg shadow-md">
-                ★
-              </span>
+            <div className="flex items-center gap-2.5">
+              <img
+                src="/assets/aistudio/favicon_io_0bfe3b54.png"
+                alt="شعار متجر الثريا بلاس"
+                className="w-11 h-11 rounded-xl object-contain bg-white p-0.5 shadow-md border border-[#202B40] shrink-0"
+              />
               <div>
                 <span className="text-xl font-black text-white block">متجر الثريا بلاس</span>
                 <span className="text-[9px] tracking-[3px] text-[#FF4753] font-bold uppercase block -mt-1">

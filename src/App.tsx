@@ -321,6 +321,7 @@ export default function App() {
         onOpenRepairModal={() => openServiceModal('repair')}
         searchQuery={searchQuery}
         onSearchChange={(q) => setSearchQuery(q)}
+        onOpenAdmin={handleOpenAdmin}
       />
 
       {/* 2. Hero Section and Features Strip */}
