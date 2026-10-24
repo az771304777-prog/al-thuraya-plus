@@ -59,6 +59,8 @@ export interface CartItem {
   unitPrice: number;
 }
 
+export type OrderStatus = 'new' | 'processing' | 'shipping' | 'delivered' | 'cancelled' | 'confirmed' | 'shipped';
+
 export interface Order {
   id: string;
   items: CartItem[];
@@ -73,7 +75,7 @@ export interface Order {
   total: number;
   currency: Currency;
   date: string;
-  status: 'confirmed' | 'processing' | 'shipped';
+  status: OrderStatus;
 }
 
 export interface RepairOption {

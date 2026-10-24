@@ -39,14 +39,38 @@ export const FilterBar: React.FC<FilterBarProps> = ({
 
   return (
     <div className="space-y-4 bg-[#101725] p-4 sm:p-6 rounded-2xl border border-[#202B40] shadow-xl text-right">
-      {/* Category Tabs */}
+      {/* Category Tabs: Mobile Dropdown & Desktop Horizontal Buttons */}
       <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-        <div className="flex items-center gap-1.5 p-1 bg-[#0C1320] rounded-xl overflow-x-auto border border-[#202B40]">
+        {/* شاشات الجوال: قائمة منسدلة أنيقة لمنع الازدحام والفيضان */}
+        <div className="md:hidden relative">
+          <label className="block text-[11px] font-bold text-slate-400 mb-1.5">
+            تصفح حسب القسم:
+          </label>
+          <div className="relative">
+            <select
+              value={selectedCategory}
+              onChange={(e) => onSelectCategory(e.target.value as ProductCategory)}
+              className="w-full bg-[#0C1320] border border-[#202B40] focus:border-[#E5252C] text-white text-xs font-bold py-2.5 px-3.5 pr-10 rounded-xl appearance-none cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#E5252C]"
+            >
+              {categories.map((c) => (
+                <option key={c.id} value={c.id} className="bg-[#101725] text-white">
+                  {c.label}
+                </option>
+              ))}
+            </select>
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-[#FF4753]">
+              <span className="text-base">☰</span>
+            </div>
+          </div>
+        </div>
+
+        {/* شاشات الكمبيوتر والشاشات الكبيرة: جميع الأقسام مفرودة أفقياً بشكل تلقائي */}
+        <div className="hidden md:flex items-center gap-1.5 p-1 bg-[#0C1320] rounded-xl border border-[#202B40]">
           {categories.map((c) => (
             <button
               key={c.id}
               onClick={() => onSelectCategory(c.id)}
-              className={`px-3.5 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all duration-150 whitespace-nowrap cursor-pointer ${
+              className={`px-3.5 py-2 text-xs lg:text-sm font-bold rounded-lg transition-all duration-150 whitespace-nowrap cursor-pointer ${
                 selectedCategory === c.id
                   ? 'bg-gradient-to-r from-[#F0323A] to-[#B5121B] text-white shadow-md'
                   : 'text-[#97A0B3] hover:text-white'

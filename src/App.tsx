@@ -283,6 +283,13 @@ export default function App() {
 
   const handleOrderSuccess = (order: Order) => {
     setCartItems([]);
+    try {
+      const existing = JSON.parse(localStorage.getItem('thuraya_orders') || '[]');
+      const updated = [order, ...existing];
+      localStorage.setItem('thuraya_orders', JSON.stringify(updated));
+    } catch (e) {
+      console.error('Failed to save order to thuraya_orders', e);
+    }
   };
 
   const openServiceModal = (mode: 'repair' | 'flashing' | 'gtag' | 'tradein' = 'repair') => {
