@@ -17,11 +17,18 @@ export const ProductVisual: React.FC<ProductVisualProps> = ({
   const color = selectedColorHex || product.colors[0]?.hex || '#3b82f6';
 
   const containerHeight =
-    size === 'sm' ? 'h-36' : size === 'lg' ? 'h-72 md:h-80' : 'h-52';
+    size === 'sm' ? 'h-28 sm:h-36' : size === 'lg' ? 'h-72 md:h-80' : 'h-36 sm:h-52';
+
+  const visualScale =
+    size === 'md'
+      ? 'scale-[0.66] xs:scale-[0.72] sm:scale-100'
+      : size === 'sm'
+      ? 'scale-[0.65] sm:scale-80'
+      : 'scale-100';
 
   return (
     <div
-      className={`relative w-full ${containerHeight} bg-gradient-to-b from-slate-100/80 via-slate-50 to-white flex items-center justify-center p-4 overflow-hidden rounded-xl border border-slate-200/60 select-none group transition-all duration-300 ${className}`}
+      className={`relative w-full ${containerHeight} bg-gradient-to-b from-slate-100/80 via-slate-50 to-white flex items-center justify-center p-2 sm:p-4 overflow-hidden rounded-xl border border-slate-200/60 select-none group transition-all duration-300 ${className}`}
     >
       {/* Subtle background ambient mesh glow */}
       <div
@@ -44,7 +51,7 @@ export const ProductVisual: React.FC<ProductVisualProps> = ({
           />
         </div>
       ) : (
-        <>
+        <div className={`transition-transform duration-300 origin-center flex items-center justify-center ${visualScale}`}>
           {/* RENDER BY VISUAL TYPE */}
           {product.visualType === 'iphone16' && (
         <div className="relative flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
@@ -470,8 +477,8 @@ export const ProductVisual: React.FC<ProductVisualProps> = ({
           </div>
         </div>
       )}
-        </>
-      )}
+    </div>
+  )}
 
       {/* Brand Watermark / Identifier */}
       <span className="absolute bottom-2 left-3 text-[10px] font-mono uppercase tracking-wider text-slate-400/80 select-none pointer-events-none">
